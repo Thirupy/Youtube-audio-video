@@ -1,51 +1,57 @@
-# Youtube-audio-video
-This program is to download youtube video/audio with just simple click (This project was developed by G.Thirumalai , panimalar Engineering College student)
 # YouTube Downloader
 
-This is a simple program that allows you to download YouTube videos and audio using the `pytube` library in Python. It provides a graphical user interface (GUI) built with the `tkinter` module.
+This simple Python script provides a graphical user interface for downloading YouTube videos and audio using the Pytube library. The application is built using Tkinter for the GUI and includes the ability to download either video or audio files from YouTube.
 
-## Requirements
+## Getting Started
 
-To run this program, make sure you have the following dependencies installed:
-
+### Prerequisites
 - Python 3.x
-- `tkinter` library
-- `pytube` library
+- Pytube library (install it using `pip install pytube`)
 
-You can install the required libraries using pip:
+### Installation
+1. Clone the repository to your local machine:
 
-```bash
-pip install tkinter pytube
-```
+   ```bash
+    git clone https://github.com/Thirupy/Youtube-audio-video.git
+   ```
+
+2. Change to the project directory:
+
+   ```bash
+   cd Youtube-audio-video
+   ```
+
+3. Run the script:
+
+   ```bash
+   python youtube download App.py
+   ```
 
 ## Usage
 
-1. Clone or download the program files to your local machine.
+1. Enter a valid YouTube URL in the provided entry field.
 
-2. Run the program by executing the following command:
+2. Specify the download location by either typing the path in the "Download Location" entry or using the "Browse" button.
 
-   ```bash
-   python youtube_downloader.py
-   ```
+3. Click the "Download Video" button to download the highest resolution video available.
 
-3. The GUI window will open.
+4. Click the "Download Audio" button to download the audio in mp3 format.
 
-4. Enter the URL of the YouTube video you want to download in the provided entry field.
+5. The progress and status of the download will be displayed at the bottom of the GUI.
 
-5. Click the "Download video" button to download the video or the "Download audio" button to download the audio.
+## Contributing
 
-6. If you didn't enter a URL before clicking the download button, an error message will be displayed, prompting you to enter a valid URL.
-
-7. The program will display a message indicating that the download process has started. Once the download is complete, it will show a message stating the location where the file has been saved.
-
-8. After 10 seconds, the messages will automatically disappear.
-
-9. You can repeat the process to download additional videos or audio.
-
-10. Close the GUI window to exit the program.
+Feel free to contribute to this project by creating issues or pull requests. Your suggestions and improvements are highly appreciated.
 
 ## License
 
-This program is released under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-Feel free to modify and distribute the code as per the terms of the license.
+## Acknowledgments
+
+- [Pytube](https://github.com/pytube/pytube): A lightweight, dependency-free Python library (and command-line utility) for downloading YouTube videos.
+- [Tkinter](https://docs.python.org/3/library/tkinter.html): The standard Python interface to the Tk GUI toolkit.
+
+---
+
+Happy downloading! 🎉
