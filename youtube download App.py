@@ -1,53 +1,75 @@
+import os
+import threading
 from tkinter import *
+from tkinter import messagebox
 from pytube import YouTube
-root=Tk()
+
+def audiodownload():
+    url = entry.get()
+    if not url:
+        messagebox.showerror("Error", "Please enter a valid YouTube URL.")
+        return
+
+    entry.delete(0, END)
+    download_thread = threading.Thread(target=ytaudio, args=(url,))
+    download_thread.start()
+
+def videodownload():
+    url = entry.get()
+    if not url:
+        messagebox.showerror("Error", "Please enter a valid YouTube URL.")
+        return
+
+    entry.delete(0, END)
+    download_thread = threading.Thread(target=ytvideo, args=(url,))
+    download_thread.start()
+
+def ytvideo(url):
+    try:
+        yt = YouTube(url)
+        stream = yt.streams.get_highest_resolution()
+        file_path = os.path.join(download_path.get(), yt.title + ".mp4")
+        display1.config(text="Downloading video...")
+        stream.download(download_path.get())
+        display1.config(text=f"Video downloaded and saved in:\n{file_path}")
+    except Exception as e:
+        messagebox.showerror("Error", str(e))
+
+def ytaudio(url):
+    try:
+        yt = YouTube(url)
+        audio = yt.streams.filter(only_audio=True).first()
+        file_path = os.path.join(download_path.get(), yt.title + ".mp3")
+        display1.config(text="Downloading audio...")
+        audio.download(download_path.get())
+        display1.config(text=f"Audio downloaded and saved in:\n{file_path}")
+    except Exception as e:
+        messagebox.showerror("Error", str(e))
+
+root = Tk()
 root.geometry("600x300")
 root.config(bg="skyblue")
-path="C:\pspp\song"
-entry=Entry(root,width=100)
-entry.grid(row=0,column=0,columnspan=3)
-videobutton=Button(root,text="Download video",command=lambda:videodownload())
-videobutton.grid(row=1,column=0)
-audiobutton=Button(root,text="Download audio",command=lambda:audiodownload())
-audiobutton.grid(row=1,column=2)
-def audiodownload():
-    current1=entry.get()
-    if (current1==""):
-        none1=Label(root,text="please Enter URL & then click Download")
-        none1.grid()
-        root.after(10000,none1.grid_remove)
-    else:
-        entry.delete(0,END)
-        ytaudio(str(current1))
-def videodownload():
-    current=entry.get()
-    if (current==""):
-        none=Label(root,text="please Enter URL & then click Download")
-        none.grid()
-        root.after(10000,none.grid_remove)
-    else:
-        entry.delete(0,END)
-        ytvideo(str(current))
-def ytvideo(a):
-    video_url =a
-    display1=Label(root,text="please wait, your video is downloading...")
-    display1.grid()
-    yt = YouTube(video_url)
-    stream = yt.streams.get_highest_resolution()
-    stream.download(path)
-    display2=Label(root,text=(" video is Downloded & saved in ",path))
-    display2.grid()
-    root.after(10000,display1.grid_remove)
-    root.after(10000,display2.grid_remove)
-def ytaudio(b):
-    video_url =b
-    display3=Label(root,text="please wait, your audio is downloading...")
-    display3.grid()
-    yt = YouTube(video_url)
-    audio = yt.streams.filter(only_audio=True).first()
-    audio.download(path)
-    display4=Label(root,text=(" audio is Downloded & saved in ",path))
-    display4.grid()
-    root.after(10000,display3.grid_remove)
-    root.after(10000,display4.grid_remove)
+root.title("YouTube Downloader")
+
+Label(root, text="Enter YouTube URL:").grid(row=0, column=0, padx=10, pady=10)
+
+entry = Entry(root, width=70)
+entry.grid(row=0, column=1, columnspan=2)
+
+Label(root, text="Download Location:").grid(row=1, column=0, padx=10, pady=5)
+
+download_path = StringVar()
+download_path.set("Downloads")h
+entry_path = Entry(root, textvariable=download_path, width=60)
+entry_path.grid(row=1, column=1, columnspan=2)
+
+videobutton = Button(root, text="Download Video", command=videodownload)
+videobutton.grid(row=2, column=0, padx=10, pady=10)
+
+audiobutton = Button(root, text="Download Audio", command=audiodownload)
+audiobutton.grid(row=2, column=2, padx=10, pady=10)
+
+display1 = Label(root, text="", fg="green")
+display1.grid(row=3, column=0, columnspan=3, pady=20)
+
 root.mainloop()
